@@ -53,6 +53,35 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         $components: path.resolve(__dirname, 'src/components'),
       },
     },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modulses[/\\](?!exoflex|react-native-paper|react-native-vector-icons|react-native-safe-area-view|react-native-multi-slider|react-native-collapsible)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              configFile: false,
+              presets: [
+                ['@babel/preset-env', { useBuiltIns: 'usage' }],
+                '@babel/preset-react',
+                '@babel/preset-flow',
+              ],
+              plugins: [
+                '@babel/plugin-proposal-class-properties',
+                '@babel/plugin-proposal-object-rest-spread',
+                '@babel/plugin-proposal-export-default-from',
+              ],
+            },
+          },
+        },
+        {
+          test: /\.ttf$/,
+          loader: 'file-loader',
+        },
+      ],
+    },
   });
 };
 
